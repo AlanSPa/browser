@@ -1,11 +1,9 @@
 import { browser } from 'k6/browser';
-import { login , acessarATEURG, consultaPaciente, options } from './funcoes/genericas.js'; 
-
+import { Url, login , options } from './funcoes/genericas.js'; 
+import { acessarATEURG, consultaPaciente } from './funcoes/consultanaATEURGFuncoes.js'; 
 
 
 export { options };
-
-
 
 export async function browserTest() {
 
@@ -19,18 +17,15 @@ export async function browserTest() {
     'Accept-Language': 'pt-BR',
   });
 
+  //TESTE
   try {
 
-    await page.goto('https://1801tst1.cloudmv.com.br/soul-mv/');
+    await page.goto(Url.baseUrl);
     await login(page);
-    await page.screenshot({ path: `consultanaATEURG/login.png` });
+    
     await acessarATEURG(page);
-    await page.screenshot({ path: `consultanaATEURG/tela.png` });
+
     await consultaPaciente(page, 'AARAO NOBREGA', 'PALMYRA NOBREGA');
-    await page.screenshot({ path: `consultanaATEURG/consultado.png` });
-    await page.waitForTimeout(20000);
-
-
     
 
   } finally {
