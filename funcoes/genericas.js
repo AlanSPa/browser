@@ -12,17 +12,18 @@ export const options = {
     browser: {
       executor: 'per-vu-iterations',
       exec: 'browserTest',
-      vus: 2,
+      vus: 1,
       iterations: 1,
       options: {
         browser: {
-          args: 'ignore-certificate-errors',
+          args: ['ignore-certificate-errors', '--start-maximized'],
           type: 'chromium',
         },
       },
     },
   },
 };
+
 
 //LOGIN
 export async function login(page) {
@@ -53,6 +54,13 @@ export function nomeVariavel() {
   const rawName = faker.name.fullName(); // Gera um nome completo
   return cleanName(rawName); // Limpa o nome
 }
+
+export function primeiroNomeVariavel() {
+  const nomeCompleto = nomeVariavel();
+  return nomeCompleto.split(' ')[0]; // Retorna apenas o primeiro nome
+}
+
+
 
 
 
@@ -90,6 +98,31 @@ export function gerarCPF() {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1$2$3$4');
 }
 
+export function gerarRG() {
+  const randomNumber = () => Math.floor(Math.random() * 9);
+  let rg = '';
+
+  for (let i = 0; i < 8; i++) {
+      rg += randomNumber();
+  }
+
+  const calcularDigitoVerificador = (rg) => {
+      let total = 0;
+      let peso = 2;
+
+      for (let i = rg.length - 1; i >= 0; i--) {
+          total += rg[i] * peso;
+          peso++;
+      }
+
+      const resto = total % 11;
+      return resto < 2 ? 0 : 11 - resto;
+  };
+
+  rg += calcularDigitoVerificador(rg);
+
+  return rg;
+}
 
 
 
@@ -100,6 +133,7 @@ export async function SalvarTela(page, msgesperada) {
   const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
 
   const BtSalvar = targetFrame.locator('//li/a[@data-action="SAVE"]');
+  await BtSalvar.click();
   await BtSalvar.click();
   await page.waitForTimeout(3000);
 
@@ -115,4 +149,26 @@ export async function SalvarTela(page, msgesperada) {
       console.log('Elemento de notificação não encontrado.');
   }
 
+}
+
+export async function conferePreenchimento(page, locator, expectedValue, timeout = 60000) {
+  const startTime = Date.now();
+  while (Date.now() - startTime < timeout) {
+      const value = await locator.inputValue();
+      if (value === expectedValue) {
+          return true;
+      }
+      await page.waitForTimeout(300);  // Espera breve antes de checar novamente
+  }
+  throw new Error(`Campo não foi preenchido com o valor esperado: ${expectedValue}`);
+}
+
+export async function preencherInput(page, locator, valor, timeout = 6000) {
+
+  await locator.waitFor({ state: 'visible', timeout });
+  await page.waitForTimeout(500);
+  await locator.click();
+  await page.waitForTimeout(500);
+  await locator.type(valor);
+  await page.waitForTimeout(1000);
 }

@@ -45,7 +45,7 @@ export async function consultaPaciente(page, paciente, nomeMae) {
   
   let BtConsulta = targetFrame.locator('//button[@id="btnPesquisar"]')
   await BtConsulta.click();
-  await page.waitForTimeout(4000);
+  await targetFrame.waitForSelector(`//div[@data-member="NM_MAE"][@title="${nomeMae}"]`);
   let NmMae = targetFrame.locator(`//div[@data-member="NM_MAE"][@title="${nomeMae}"]`);
   await NmMae.isVisible();
   await page.screenshot({ path: `consultanaATEURG/consultadoIT${__ITER}-VU${__VU}.png` });
