@@ -1,10 +1,10 @@
+import { browser } from 'k6/browser';
 import { faker } from 'https://cdn.skypack.dev/@faker-js/faker';
 
 export const Url = {
   baseUrl: 'https://1801tst1.cloudmv.com.br/soul-mv/'
 };
 
-const frameId = 'child_APOIO.HTML,ATEND.HTML,CONTR.HTML,DIAGN.HTML,EXTENSION.HTML,FATUR-CONV.HTML,FATUR-SUS.HTML,FINAN.HTML,GLOBAL.HTML,INTER.HTML,SUPRI.HTML'; 
 
 
 export const options = {
@@ -23,6 +23,35 @@ export const options = {
     },
   },
 };
+
+export async function PageConfs() {
+
+
+
+const context = await browser.newContext({
+  locale: 'pt-BR',
+});
+const page = await context.newPage({
+  locale: 'pt-BR',
+});
+await page.setExtraHTTPHeaders({
+  'Accept-Language': 'pt-BR',
+});
+
+return { browser, page };
+
+}
+
+export async function Iframe(page) {
+
+const frameId = 'child_APOIO.HTML,ATEND.HTML,CONTR.HTML,DIAGN.HTML,EXTENSION.HTML,FATUR-CONV.HTML,FATUR-SUS.HTML,FINAN.HTML,GLOBAL.HTML,INTER.HTML,SUPRI.HTML'; 
+const frames = await page.frames();
+const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+
+return { targetFrame };
+
+}
+
 
 
 //LOGIN
@@ -127,10 +156,7 @@ export function gerarRG() {
 
 
 // SALVAR TELA E VALIDAR
-export async function SalvarTela(page, msgesperada) {
-  
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function SalvarTela(page, targetFrame, msgesperada) {
 
   const BtSalvar = targetFrame.locator('//li/a[@data-action="SAVE"]');
   await BtSalvar.click();

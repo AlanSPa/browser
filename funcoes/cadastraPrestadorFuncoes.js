@@ -1,8 +1,6 @@
 import { conferePreenchimento,  preencherInput, } from './genericas.js'
 
 
-const frameId = 'child_APOIO.HTML,ATEND.HTML,CONTR.HTML,DIAGN.HTML,EXTENSION.HTML,FATUR-CONV.HTML,FATUR-SUS.HTML,FINAN.HTML,GLOBAL.HTML,INTER.HTML,SUPRI.HTML'; 
-
 
 
 
@@ -31,8 +29,8 @@ export async function acessarCAD_PRE(page) {
 //CADASTRO OBRIGATORIO
 export async function cadastroPrimario(page, nome, guerra, cpf, tp_prestador){
 
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));  
+//  const frames = await page.frames();
+//  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));  
 
   // NOME
   let InputTela = await targetFrame.locator('//input[@id="inp:nmPrestador"]');
@@ -79,10 +77,7 @@ export async function cadastroPrimario(page, nome, guerra, cpf, tp_prestador){
 
 
 //CADASTRAR PRESTADOR
-export async function cadastraPrestador(page, nome, mae, pai, nascimento, sexo, cor, cpf, rg, emissor, uf, dtExped) {
-
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function cadastraPrestador(page, targetFrame, nome, mae, pai, nascimento, sexo, cor, cpf, rg, emissor, uf, dtExped) {
 
   //await page.waitForTimeout(9000);
   // Nome do Prestador
@@ -215,10 +210,7 @@ export async function cadastraPrestador(page, nome, mae, pai, nascimento, sexo, 
 
 //PREENCHER COMPLEMENTOS
 
-export async function cadastraComplemento(page, tp_prestador, chefe, Ccm, Email, Conselho) {
-
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function cadastraComplemento(page, targetFrame, tp_prestador, chefe, Ccm, Email, Conselho) {
 
   let AbaComplemento = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_DADOS_PRESTADOR"]');
   await AbaComplemento.waitFor({ state: 'visible', timeout: 100000 });
@@ -277,10 +269,8 @@ export async function cadastraComplemento(page, tp_prestador, chefe, Ccm, Email,
 
 //PREENCHER CONTATO
 
-export async function cadastraContato(page, Contato, Email) {
+export async function cadastraContato(page, targetFrame, Contato, Email) {
 
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
 
   let AbaContato = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_TIP_COMUN"]');
   await AbaContato.waitFor({ state: 'visible', timeout: 100000 });
@@ -308,10 +298,8 @@ export async function cadastraContato(page, Contato, Email) {
 
 //PREENCHER VINCULO
 
-export async function cadastraVinculo(page, Empresa) {
+export async function cadastraVinculo(page, targetFrame, Empresa) {
 
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
 
   let AbaVinculo = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_TP_VINCULO"]');
   await AbaVinculo.waitFor({ state: 'visible', timeout: 100000 });
@@ -333,10 +321,7 @@ export async function cadastraVinculo(page, Empresa) {
 
 //PREENCHER ESPECIALIDADE
 
-export async function cadastraEspecialidade(page, Especialidade, Carga) {
-
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function cadastraEspecialidade(page, targetFrame, Especialidade, Carga) {
 
   let AbaEspec = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_ESPECIALIDADES"]');
   await AbaEspec.waitFor({ state: 'visible', timeout: 100000 });
@@ -359,10 +344,7 @@ export async function cadastraEspecialidade(page, Especialidade, Carga) {
 
 //PREENCHER AREA DE ATUACAO
 
-export async function cadastraArea(page, Area) {
-
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function cadastraArea(page, targetFrame, Area) {
 
   let AbaArea = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_AREA_ATUACAO"]');
   await AbaArea.waitFor({ state: 'visible', timeout: 100000 });
@@ -381,10 +363,7 @@ export async function cadastraArea(page, Area) {
 
 //PREENCHER DE CREDENCIAMENTO
 
-export async function cadastraCredenciamento(page, Convenio) {
-
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function cadastraCredenciamento(page, targetFrame, Convenio) {
 
   let AbaCred = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_CREDENCIAMENTO"]');
   await AbaCred.waitFor({ state: 'visible', timeout: 100000 });
@@ -413,10 +392,7 @@ export async function cadastraCredenciamento(page, Convenio) {
 
 //GRUPOS PROIBIDOS
 
-export async function gruposProibidos(page) {
-
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function gruposProibidos(page, targetFrame,) {
 
   let AbaGru = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_GRU_PRO"]');
   await AbaGru.waitFor({ state: 'visible', timeout: 100000 });
@@ -434,10 +410,7 @@ export async function gruposProibidos(page) {
 
 //GRUPOS ORIGENS PROIBIDAS
 
-export async function origensProibidas(page) {
-
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function origensProibidas(page, targetFrame,) {
 
   let AbaOri = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_ORI_PROIBIDO"]');
   await AbaOri.waitFor({ state: 'visible', timeout: 100000 });
@@ -455,10 +428,7 @@ export async function origensProibidas(page) {
 
 //CADASTRAR PREFERENCIA
 
-export async function cadPreferencia(page, Preferencia, Item) {
-
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function cadPreferencia(page, targetFrame, Preferencia, Item) {
 
   let AbaOri = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_PREFERENCIA"]');
   await AbaOri.waitFor({ state: 'visible', timeout: 100000 });
@@ -481,10 +451,8 @@ export async function cadPreferencia(page, Preferencia, Item) {
 
 //CADASTRAR REFERENCIA
 
-export async function referencia(page, Instituicao, Contato) {
+export async function referencia(page, targetFrame, Instituicao, Contato) {
 
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
 
   let AbaOri = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_REFERENCIA"]');
   await AbaOri.waitFor({ state: 'visible', timeout: 100000 });
@@ -506,10 +474,8 @@ export async function referencia(page, Instituicao, Contato) {
 
 //CADASTRAR INSTITUICAO
 
-export async function cadInstituicao(page, Instituicao, Data, DataFim) {
+export async function cadInstituicao(page, targetFrame, Instituicao, Data, DataFim) {
 
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
 
   let AbaOri = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_INSTITUICAO"]');
   await AbaOri.waitFor({ state: 'visible', timeout: 100000 });
@@ -534,10 +500,7 @@ export async function cadInstituicao(page, Instituicao, Data, DataFim) {
 
 //CADASTRAR AGENDAMENTO
 
-export async function cadAgenda(page, Sigla, Desc) {
-
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function cadAgenda(page, targetFrame, Sigla, Desc) {
 
   let AbaOri = targetFrame.locator('//li[@aria-controls="TAB_CANVAS-TAB_AGENDAMENTO"]');
   await AbaOri.waitFor({ state: 'visible', timeout: 100000 });
