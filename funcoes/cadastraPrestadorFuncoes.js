@@ -2,8 +2,6 @@ import { conferePreenchimento,  preencherInput, } from './genericas.js'
 
 
 
-
-
 //ACESSO A TELA CAD_PRE
 export async function acessarCAD_PRE(page) {
 
@@ -29,8 +27,6 @@ export async function acessarCAD_PRE(page) {
 //CADASTRO OBRIGATORIO
 export async function cadastroPrimario(page, nome, guerra, cpf, tp_prestador){
 
-//  const frames = await page.frames();
-//  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));  
 
   // NOME
   let InputTela = await targetFrame.locator('//input[@id="inp:nmPrestador"]');
@@ -71,8 +67,6 @@ export async function cadastroPrimario(page, nome, guerra, cpf, tp_prestador){
 
 
 }
-
-
 
 
 
