@@ -12,7 +12,7 @@ export const options = {
     browser: {
       executor: 'per-vu-iterations',
       exec: 'browserTest',
-      vus: 1,
+      vus: 6,
       iterations: 1,
       options: {
         browser: {
