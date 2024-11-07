@@ -1,5 +1,5 @@
 import { browser } from 'k6/browser';
-import { Url, login , options } from './funcoes/genericas.js'; 
+import { Url, login , options, PageConfs, Iframe } from './funcoes/genericas.js'; 
 import { acessarATEURG, consultaPaciente } from './funcoes/consultanaATEURGFuncoes.js'; 
 
 
@@ -7,15 +7,7 @@ export { options };
 
 export async function browserTest() {
 
-  const context = await browser.newContext({
-    locale: 'pt-BR',
-  });
-  const page = await context.newPage({
-    locale: 'pt-BR',
-  });
-  await page.setExtraHTTPHeaders({
-    'Accept-Language': 'pt-BR',
-  });
+  const { page } = await PageConfs();
 
   //TESTE
   try {
@@ -24,8 +16,9 @@ export async function browserTest() {
     await login(page);
     
     await acessarATEURG(page);
+    const { targetFrame } = await Iframe(page);
 
-    await consultaPaciente(page, 'AARAO NOBREGA', 'PALMYRA NOBREGA');
+    await consultaPaciente(page, targetFrame, 'AARAO NOBREGA', 'PALMYRA NOBREGA');
     
 
   } finally {

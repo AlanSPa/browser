@@ -31,11 +31,8 @@ export async function acessarCAD_PAC(page) {
 
 
 //CADASTRAR PACIENTE NA CAD_PAC
-export async function cadastraPaciente(page, nome, mae, nascimento, sexo, cor, cpf) {
+export async function cadastraPaciente(page, targetFrame, nome, mae, nascimento, sexo, cor, cpf) {
 
-  
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
   let InputTela;
 
   // Nome do paciente
@@ -90,10 +87,8 @@ export async function cadastraPaciente(page, nome, mae, nascimento, sexo, cor, c
 }
 
 //CADASTRAR ENDERECO NA CAD_PAC
-export async function cadastraEndereco(page, rua, bairro, num, cidade) {
-  
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function cadastraEndereco(page, targetFrame, rua, bairro, num, cidade) {
+
   let InputTela;
 
   //Endereco

@@ -8,20 +8,28 @@ export const Url = {
 
 
 export const options = {
+  
   scenarios: {
     browser: {
       executor: 'per-vu-iterations',
-      exec: 'browserTest',
-      vus: 6,
-      iterations: 1,
+      vus: 1,             
+      iterations: 1,    
+      exec: 'browserTest', 
+      //executor: 'ramping-vus',
+      //startVUs: 0,           
+      //stages: [
+      //  { duration: '10s', target: 2 },    
+      //  { duration: '4m', target: 3 },     
+      //],      
       options: {
         browser: {
-          args: ['ignore-certificate-errors', '--start-maximized'],
-          type: 'chromium',
+          args: ['ignore-certificate-errors', '--start-maximized'],  
+          type: 'chromium', 
         },
       },
     },
   },
+
 };
 
 export async function PageConfs() {

@@ -29,10 +29,7 @@ export async function acessarATEURG(page) {
 
 
 //CONSULTA PACIENTE ATRAVES DA ATEURG
-export async function consultaPaciente(page, paciente, nomeMae) {
- 
-  const frames = await page.frames();
-  const targetFrame = frames.find(frame => frame.name() === frameId || frame.url().includes("soul-product-workspace"));
+export async function consultaPaciente(page, targetFrame, paciente, nomeMae) {
 
   await page.waitForTimeout(4000);
   let InputPac = targetFrame.locator('//input[@id="inp:primeiroNome"]')

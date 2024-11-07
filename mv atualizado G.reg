@@ -29,6 +29,10 @@ Windows Registry Editor Version 5.00
 "17"="http://qarelease.mv.com.br:84/mveditor/"
 "17"="http://1975tst1.cloudmv.com.br:82/"
 "18"="http://1975tst1.cloudmv.com.br/"
+"19"="https://1801tst1.cloudmv.com.br/"
+"20"="https://1801tst1.cloudmv.com.br/soul-mv/"
+
+
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome\PopupsAllowedForUrls]
 "1"="http://qadevelop.mv.com.br:83/"
@@ -50,3 +54,5 @@ Windows Registry Editor Version 5.00
 "17"="http://qarelease.mv.com.br:84/mveditor/"
 "17"="http://1975tst1.cloudmv.com.br:82/"
 "18"="http://1975tst1.cloudmv.com.br/"
+"19"="https://1801tst1.cloudmv.com.br/"
+"20"="https://1801tst1.cloudmv.com.br/soul-mv/"
